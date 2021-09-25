@@ -1,24 +1,33 @@
 package com.bl.addressbook;
 
-
-
 public class AddressBook {
     public static void main(String[] args) {
-        String fname,lname,address,city,state,zip,phone;
-        System.out.println("Welcome To Address Book");
-        System.out.println("Enter First Name");
-        fname=InputUtil.getStringValue();
-        System.out.println("Enter Last Name");
-        lname=InputUtil.getStringValue();
-        System.out.println("Enter Address");
-        address=InputUtil.getStringValue();
-        System.out.println("Enter City");
-        city=InputUtil.getStringValue();
-        System.out.println("Enter State");
-        state=InputUtil.getStringValue();
-        System.out.println("Enter Zip");
-        zip=InputUtil.getStringValue();
-        System.out.println("Enter phone number");
-        phone=InputUtil.getStringValue();
+        int choice,i=0;
+        Helper help = new Helper();
+        while(i==0)
+        {
+            System.out.println("--- Address Book Management ---\n");
+            System.out.println("\t--MENU--");
+            System.out.println("1: Add New Person      ");
+            System.out.println("2: Display Records     ");
+            System.out.println("3: Exit		       \n");
+//			System.out.println(" -----------------------");
+            System.out.println("--- Enter Your Choice ---");
+            choice = InputUtil.getIntValue();
+            switch(choice)
+            {
+                case 1 :
+                    help.addRecord();
+                    break;
+                case 2 :
+                    help.displayRecord();
+                    break;
+                case 3 :
+                    i=1;
+                    break;
+                default :
+                    System.out.println("Please Enter Valid Option!!!");
+            }
+        }
     }
 }
