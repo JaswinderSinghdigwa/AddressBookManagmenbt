@@ -10,10 +10,19 @@ public class Helper {
     //	ADD METHOD
     public void addRecord()
     {
-        final String fname, lname, address, city, state, phone,zip;
-
-        System.out.print("Enter First Name : ");
-        fname = InputUtil.getStringValue();
+        int i=0;
+        String fname = null;
+        final String lname, address, city, state, phone,zip;
+        while(i==0) {
+            System.out.print("Enter First Name : ");
+            fname = InputUtil.getStringValue();
+            if (checkExists(fname)) {
+                System.out.println("Person Name Already Exists!!\nPlease enter different name...");
+            }
+            else {
+                i=1;
+            }
+        }
         System.out.print("Enter Last Name : ");
         lname = InputUtil.getStringValue();
         System.out.print("Enter Phone Number : ");
@@ -33,9 +42,14 @@ public class Helper {
     //	DISPLAY METHOD
     public void displayRecord()
     {
-        for(Person person: PERSON)
+        if (PERSON.isEmpty())
         {
-            System.out.println(person);
+            System.out.println("No Records!!!");
+        }
+        else {
+            for (Person person : PERSON) {
+                System.out.println(person);
+            }
         }
 
     } // END OF displayRecord
@@ -63,7 +77,7 @@ public class Helper {
             choice = InputUtil.getIntValue();
             switch (choice) {
                 case 1:
-                    System.out.print("Enter new Street : ");
+                    System.out.print("Enter new Address : ");
                     address = InputUtil.getStringValue();
                     PERSON.get(id).setAddress(address);
                     break;
@@ -108,5 +122,22 @@ public class Helper {
         System.out.print("\nEnter #ID to delete Contact : ");
         id = InputUtil.getIntValue();
         PERSON.remove(id);
+    }
+    public boolean checkExists(String fname)
+    {
+        int flag=0;
+        for (Person p: PERSON)
+        {
+            if (p.getFname().equals(fname))
+            {
+                flag=1;
+                break;
+            }
+        }
+        if (flag==1)
+        {
+            return true;
+        }
+        return false;
     }
 }
