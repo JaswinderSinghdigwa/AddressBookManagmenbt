@@ -3,14 +3,15 @@ package com.bl.addressbook;
 public class AddressBook {
     public static void main(String[] args) {
         int choice,i=0;
-        Helper help = new Helper();
+        final Helper help = new Helper();
         while(i==0)
         {
             System.out.println("--- Address Book Management ---\n");
             System.out.println("\t--MENU--");
             System.out.println("1: Add New Person      ");
             System.out.println("2: Display Records     ");
-            System.out.println("3: Exit		       \n");
+            System.out.println("3: Edit Person     ");
+            System.out.println("4: Exit		       \n");
 //			System.out.println(" -----------------------");
             System.out.println("--- Enter Your Choice ---");
             choice = InputUtil.getIntValue();
@@ -23,6 +24,9 @@ public class AddressBook {
                     help.displayRecord();
                     break;
                 case 3 :
+                    help.editRecord();
+                    break;
+                case 4 :
                     i=1;
                     break;
                 default :
