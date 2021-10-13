@@ -197,28 +197,56 @@ public class Contact {
 		return false;
 	}
 	
+	  public void sortRecords() {
+	        System.out.println("Sort By...\n"
+	                + "1: First Name\n"
+	                + "2: City\n"
+	                + "3: State\n"
+	                + "4: Zip Code\n"
+	                + "5: Back");
+	        int choice = InputUtility.getIntValue();
+	        switch (choice) {
+	            case 1:
+	                SearchingPerson.sortByName(PERSON);
+	                break;
+	            case 2:
+	            	SearchingPerson.sortByCity(PERSON);
+	                break;
+	            case 3:
+	            	SearchingPerson.sortByState(PERSON);
+	                break;
+	            case 4:
+	            	SearchingPerson.sortByZip(PERSON);
+	                break;
+	            case 5:
+	                return;
+	            default:
+	                System.out.println("Please Enter Valid Option...");
+	        }
+	  }
+	
     /*Method for Search Menu*/
-    public void searchInRecords() {
-        int i = 0;
-        while (i == 0) {
-            System.out.println("1. Search By City\n" +
-                    "2. Search By State\n" +
-                    "3. Back\n" +
-                    "Choose Your Option");
-            int choice = InputUtility.getIntValue();
-            switch (choice) {
-                case 1:
-                    searchByCity(PERSON);
-                    break;
-                case 2:
-                    searchByState(PERSON);
-                    break;
-                case 3:
-                    i = 1;
-                    break;
-                default:
-                    System.out.println("Please Enter Correct Option...");
-            }
-        }
+	  public void searchInRecords() {
+	        int i = 0;
+	        while (i == 0) {
+	            System.out.println("1. Search By City\n" +
+	                    "2. Search By State\n" +
+	                    "3. Back\n" +
+	                    "Choose Your Option");
+	            int choice = InputUtility.getIntValue();
+	            switch (choice) {
+	                case 1:
+	                	SearchingPerson.searchByCity(PERSON);
+	                    break;
+	                case 2:
+	                	SearchingPerson.searchByState(PERSON);
+	                    break;
+	                case 3:
+	                    i = 1;
+	                    break;
+	                default:
+	                    System.out.println("Please Enter Correct Option...");
+	            }
+	        }
     }
 }
