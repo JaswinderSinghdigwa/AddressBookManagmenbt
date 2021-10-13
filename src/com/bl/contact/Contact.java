@@ -1,22 +1,30 @@
-package com.bl.addressbook;
+package com.bl.contact;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
-public class Helper {
+import com.bl.Utility.InputUtility;
+
+public class Contact {
+	
     // GLOBAL LIST TO STORE PERSON RECORD
     List<Person> PERSON = new ArrayList<Person>();
-    //	ADD METHOD
+    
+    /**
+     * Create Method to Add the Contact List.
+     */
+    
     public void addRecord()
     {
         int i=0;
-        String fname = null;
-        final String lname, address, city, state, phone,zip;
+        String firstname = null;
+        final String lastname, address, city, state, phone,zip;
         while(i==0) {
             System.out.print("Enter First Name : ");
-            fname = InputUtil.getStringValue();
-            if (checkExists(fname)) {
+            firstname = InputUtility.getStringValue();
+            if (checkExists(firstname)) {
                 System.out.println("Person Name Already Exists!!\nPlease enter different name...");
             }
             else {
@@ -24,19 +32,19 @@ public class Helper {
             }
         }
         System.out.print("Enter Last Name : ");
-        lname = InputUtil.getStringValue();
+        lastname = InputUtility.getStringValue();
         System.out.print("Enter Phone Number : ");
-        phone = InputUtil.getStringValue();
+        phone = InputUtility.getStringValue();
         System.out.print("Enter Address : ");
-        address = InputUtil.getStringValue();
+        address = InputUtility.getStringValue();
         System.out.print("Enter city : ");
-        city = InputUtil.getStringValue();
+        city = InputUtility.getStringValue();
         System.out.print("Enter zip : ");
-        zip = InputUtil.getStringValue();
+        zip = InputUtility.getStringValue();
         System.out.print("Enter state : ");
-        state = InputUtil.getStringValue();
+        state = InputUtility.getStringValue();
 
-        PERSON.add(new Person(fname,lname,address,city,state,phone,zip));
+        PERSON.add(new Person(firstname,lastname,address,city,state,phone,zip));
     } // END of addRecord()
 
     //	DISPLAY METHOD
@@ -54,17 +62,19 @@ public class Helper {
 
     } // END OF displayRecord
 
-    //	EDIT METHOD
+    /**
+     * Create Method to Edit the Contact using First Name.
+     */  
     public void editRecord()
     {
         int id,choice = 0, i=0;
-        String fname,lname,address,city,state,phone,zip;
+        String firstname,lastnamename,address,city,state,phone,zip;
         for(Person person: PERSON)
         {
             System.out.println("ID: #"+PERSON.indexOf(person)+" : "+person);
         }
         System.out.print("\nEnter #ID to Edit Contact : ");
-        id = InputUtil.getIntValue();
+        id = InputUtility.getIntValue();
         System.out.println(PERSON.get(id));
         while(i==0) {
             System.out.println("What You Want to edit...\n"
@@ -74,31 +84,31 @@ public class Helper {
                     + "\t4: Phone\n"
                     + "\t5: Zip Code\n"
                     + "\t6. Save And Exit\n");
-            choice = InputUtil.getIntValue();
+            choice = InputUtility.getIntValue();
             switch (choice) {
                 case 1:
                     System.out.print("Enter new Address : ");
-                    address = InputUtil.getStringValue();
+                    address = InputUtility.getStringValue();
                     PERSON.get(id).setAddress(address);
                     break;
                 case 2:
                     System.out.print("Enter new City : ");
-                    city = InputUtil.getStringValue();
+                    city = InputUtility.getStringValue();
                     PERSON.get(id).setCity(city);
                     break;
                 case 3:
                     System.out.print("Enter new State : ");
-                    state = InputUtil.getStringValue();
+                    state = InputUtility.getStringValue();
                     PERSON.get(id).setState(state);
                     break;
                 case 4:
                     System.out.print("Enter new Phone : ");
-                    phone = InputUtil.getStringValue();
+                    phone = InputUtility.getStringValue();
                     PERSON.get(id).setPhone(phone);
                     break;
                 case 5:
                     System.out.print("Enter new Zip Code : ");
-                    zip = InputUtil.getStringValue();
+                    zip = InputUtility.getStringValue();
                     PERSON.get(id).setZip(zip);
                     break;
                 case 6:
@@ -111,24 +121,43 @@ public class Helper {
         }
     } //end of edit() method
 
-    //	DELETE METHOD
+    /**
+     * Create Method to Delete the Contact. Will work  as there is no  contacts with  first name.
+     */
+    
     public void deleteRecord()
     {
         int id;
-        for(Person p: PERSON)
+        for(Person person: PERSON)
         {
-            System.out.println("ID: #"+PERSON.indexOf(p)+" : "+p);
+            System.out.println("ID: #"+PERSON.indexOf(person)+" : "+person);
         }
         System.out.print("\nEnter #ID to delete Contact : ");
-        id = InputUtil.getIntValue();
+        id = InputUtility.getIntValue();
         PERSON.remove(id);
     }
-    public boolean checkExists(String fname)
+    
+    public void sortByName()
+    {
+    	 {
+    	        Collections.sort(PERSON, Person.firstNameSorting);
+    	        for(Person person: PERSON)
+    	        {
+    	            System.out.println(person);
+    	        }
+    	    }
+    }
+    
+    /**
+     * Create Method to checking the String. Will work  as there is	 contacts with  first name.
+     */
+    
+    public boolean checkExists(String firstname)
     {
         int flag=0;
-        for (Person p: PERSON)
+        for (Person person: PERSON)
         {
-            if (p.getFname().equals(fname))
+            if (person.getFirstname().equals(firstname))
             {
                 flag=1;
                 break;

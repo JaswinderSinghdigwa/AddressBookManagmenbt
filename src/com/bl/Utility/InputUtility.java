@@ -1,9 +1,8 @@
-package com.bl.addressbook;
+package com.bl.Utility;
 
 import java.util.Scanner;
 
-public class InputUtil
-{
+public class InputUtility{
     private final static Scanner sc = new Scanner(System.in);
     public static int getIntValue()
     {
@@ -13,4 +12,5 @@ public class InputUtil
     {
         return sc.next();
     }
+	
 }

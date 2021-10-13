@@ -1,15 +1,15 @@
-package com.bl.addressbook;
+package com.bl.contact;
 
 import java.util.Comparator;
 
 public class Person
 {
-    private String fname, lname, address, city, state, phone,zip;
+    private String firstname, lastname, address, city, state, phone,zip;
 
-    public Person(String fname, String lname, String address, String city, String state, String phone, String zip)
+    public Person(String firstname, String lastname, String address, String city, String state, String phone, String zip)
     {
-        this.fname = fname;
-        this.lname = lname;
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.address = address;
         this.city = city;
         this.state = state;
@@ -17,24 +17,24 @@ public class Person
         this.zip = zip;
     }
 
-    public String getFname()
+    public String getFirstname()
     {
-        return fname;
+        return firstname;
     }
 
-    public void setFname(String fname)
+    public void setFirstname(String fname)
     {
-        this.fname = fname;
+        this.firstname = fname;
     }
 
-    public String getLname()
+    public String getLastname()
     {
-        return lname;
+        return lastname;
     }
 
-    public void setLname(String lname)
+    public void setLastname(String lname)
     {
-        this.lname = lname;
+        this.lastname = lname;
     }
 
     public String getAddress()
@@ -86,12 +86,24 @@ public class Person
     {
         this.zip = zip;
     }
+    
+    // Sort By First Name
+    public static Comparator<Person> firstNameSorting = new Comparator<Person>() {
+        @Override
+        public int compare(Person person1, Person person2)
+        {
+            String firstname1 = person1.getFirstname();
+            String firstname2 = person2.getFirstname();
+            // ascending order
+            return firstname1.compareTo(firstname2);
+        }
+    };
 
     @Override
     public String toString() {
         return "Person{" +
-                "fname='" + fname + '\'' +
-                ", lname='" + lname + '\'' +
+                "fname='" + firstname + '\'' +
+                ", lname='" + lastname + '\'' +
                 ", address='" + address + '\'' +
                 ", city='" + city + '\'' +
                 ", state='" + state + '\'' +

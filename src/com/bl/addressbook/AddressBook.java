@@ -1,9 +1,41 @@
 package com.bl.addressbook;
 
+import com.bl.Utility.InputUtility;
+import com.bl.contact.Contact;
+
+/**
+ * Create Class for Defining the Address Book
+ */	
 public class AddressBook {
-    public static void main(String[] args) {
+	
+	public String name;
+	
+	
+    public AddressBook(String name) {
+		super();
+		this.name = name;
+	}
+
+	public static void main(String[] args) {
+    	AddressBook[] address = new AddressBook[0];
+    	
+    	while(true){
+           int  howManyBooks = InputUtility.getIntValue();
+            if (howManyBooks>0){
+                address = new AddressBook[howManyBooks];                   //This code decides how many books are in the array of books/the library
+                break;
+            }
+            else System.out.print("You must create at least 1 book.");
+            }
+    	for (int i=0;i<address.length;i++){
+
+    		System.out.println("Enter the BookName");
+    		String bookname = InputUtility.getStringValue();
+    		address[i] = new AddressBook(bookname);
+    	}
+    
         int choice,i=0;
-        final Helper help = new Helper();
+         Contact contact = new Contact();
         while(i==0)
         {
             System.out.println("--- Address Book Management ---\n");
@@ -15,20 +47,22 @@ public class AddressBook {
             System.out.println("5: Exit		       \n");
 //			System.out.println(" -----------------------");
             System.out.println("--- Enter Your Choice ---");
-            choice = InputUtil.getIntValue();
+            choice = InputUtility.getIntValue();
             switch(choice)
             {
+            /* Create Method to Add the Contact List.
+            */
                 case 1 :
-                    help.addRecord();
+                	contact.addRecord();
                     break;
                 case 2 :
-                    help.displayRecord();
+                	contact.displayRecord();
                     break;
                 case 3 :
-                    help.editRecord();
+                	contact.editRecord();
                     break;
                 case 4 :
-                    help.deleteRecord();
+                	contact.deleteRecord();
                     break;
                 case 5 :
                     i=1;
