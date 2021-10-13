@@ -126,36 +126,54 @@ public class Contact {
 		PERSON.remove(id);
 	}
 	
-	 /**
-     * Create Method to Sorting the Contact By detail
+	   /*Method Search the Person By City
+     * @Param Person List
      */
 	
-	public void sortRecords(){
-        System.out.println("Sort By...\n"
-                + "1: First Name\n"
-                + "2: City\n"
-                + "3: State\n"
-                + "4: Zip Code\n"
-                + "5: Back");
-        int choice = InputUtility.getIntValue();
-        switch (choice)
-        {
-            case 1 : 
-                Sorting.sortByName(PERSON);
-                break;
-            case 2 :
-                Sorting.sortByZip(PERSON);
-                break;
-            case 3 :
-                Sorting.sortByState(PERSON);
-                break;
-            case 4 :
-                Sorting.sortByZip(PERSON);
-                break;
-            case 5 :
-                return;
-            default:
-                System.out.println("Please Enter Valid Option...");
+    public static void searchByCity(List<Person> person) {
+        String search;
+        List<Person> matches = new ArrayList<>();
+        System.out.println("Enter First Name to search : ");
+        search = InputUtility.getStringValue();
+        int flag = 0;
+        for (Person p : person) {
+            if (p.getCity().equalsIgnoreCase(search)) {
+                flag = 1;
+                matches.add(p);
+            }
+        }
+        if (flag == 1) {
+            System.out.println("...Match Found...");
+            for (Person p : matches) {
+                System.out.println(p);
+            }
+        } else {
+            System.out.println("Match Not Found!!!");
+        }
+    }
+
+    /*Method Search the Person By State
+     * @Param Person List
+     */
+    public static void searchByState(List<Person> person) {
+        String search;
+        int flag = 0;
+        List<Person> matches = new ArrayList<>();
+        System.out.println("Enter First Name to search : ");
+        search = InputUtility.getStringValue();
+        for (Person p : person) {
+            if (p.getState().equalsIgnoreCase(search)) {
+                flag = 1;
+                matches.add(p);
+            }
+        }
+        if (flag == 1) {
+            System.out.println("...Match Found...");
+            for (Person p : matches) {
+                System.out.println(p);
+            }
+        } else {
+            System.out.println("Match Not Found!!!");
         }
     }
 
@@ -178,4 +196,29 @@ public class Contact {
 		}
 		return false;
 	}
+	
+    /*Method for Search Menu*/
+    public void searchInRecords() {
+        int i = 0;
+        while (i == 0) {
+            System.out.println("1. Search By City\n" +
+                    "2. Search By State\n" +
+                    "3. Back\n" +
+                    "Choose Your Option");
+            int choice = InputUtility.getIntValue();
+            switch (choice) {
+                case 1:
+                    searchByCity(PERSON);
+                    break;
+                case 2:
+                    searchByState(PERSON);
+                    break;
+                case 3:
+                    i = 1;
+                    break;
+                default:
+                    System.out.println("Please Enter Correct Option...");
+            }
+        }
+    }
 }
