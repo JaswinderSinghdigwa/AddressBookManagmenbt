@@ -72,7 +72,7 @@ public class Contact {
 		id = InputUtility.getIntValue();
 		System.out.println(PERSON.get(id));
 		while (i == 0) {
-			System.out.println("What You Want to edit...\n" + "\t1: Address\n" + "\t2: city\n" + "\t3: State\n"
+		System.out.println("What You Want to edit...\n" + "\t1: Address\n" + "\t2: city\n" + "\t3: State\n"
 					+ "\t4: Phone\n" + "\t5: Zip Code\n" + "\t6. Save And Exit\n");
 			choice = InputUtility.getIntValue();
 			switch (choice) {
