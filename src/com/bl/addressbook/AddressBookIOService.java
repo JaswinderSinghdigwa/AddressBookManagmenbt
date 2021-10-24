@@ -10,7 +10,7 @@ import java.util.List;
 
 public class AddressBookIOService {
     //Variables
-    public static String ADDRESS_BOOK_FILE_NAME = "addressBook-file.txt";
+    public static String ADDRESS_BOOK_FILE_NAME = "../AddressBookManagmenbt/src/com/bl/addressbook/addressBook_file";
     /**
      * Create Method for Writing the Address Book Data to File
      */

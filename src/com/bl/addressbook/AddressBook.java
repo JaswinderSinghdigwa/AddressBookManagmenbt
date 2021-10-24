@@ -1,7 +1,11 @@
 package com.bl.addressbook;
 
 import java.io.IOException;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Create Class for Defining the Address Book
@@ -13,15 +17,20 @@ public class AddressBook {
 	}
 
 	// variables
+	private static final String SAMPLE_CSV_FILE_PATH = "O:\\Intellij\\AddressBook_System\\src\\test\\resources\\contacts.csv";
 	private static final Scanner sc = new Scanner(System.in);
 	public static List<ContactPerson> person = new ArrayList<ContactPerson>();
 	public static HashMap<String, List<ContactPerson>> addressBookSystem = new HashMap<>();
+	public static Map<String,List<ContactPerson>> personByCity;
+    public static Map<String,List<ContactPerson>> personByState;
 
 	/**
 	 * Create Constructor for Initializing the variables with parameters
 	 */
 	public AddressBook(List<ContactPerson> person) {
 		this.person = person;
+	    this.personByCity = new HashMap<>();
+	    this.personByState= new HashMap<>();
 	}
 
 	// Empty Constructor
@@ -50,7 +59,7 @@ public class AddressBook {
 			int zipCode = consoleInputReader.nextInt();
 			consoleInputReader.nextLine();
 			System.out.println("enter the Email address");
-			String eMail = consoleInputReader.nextLine();
+			String email = consoleInputReader.nextLine();
 			System.out.println("enter the Phone Number");
 			String phoneNumber = consoleInputReader.nextLine();
 
@@ -64,7 +73,7 @@ public class AddressBook {
 				}
 			}
 			// Otherwise... you've checked all the elements, and have not found a duplicate
-			person.add(new ContactPerson(firstName, lastName, address, city, state, zipCode, eMail, phoneNumber)); // Storing
+			person.add(new ContactPerson(firstName, lastName, address, city, state, zipCode, email, phoneNumber)); // Storing
 																													// the
 																													// Contacts
 			System.out.println(person); // Printing the Contacts
@@ -85,7 +94,7 @@ public class AddressBook {
 	 */
 	public void writeAddressBook(AddressBook.IOService ioService) throws IOException {
 		if (ioService.equals(IOService.CONSOLE_IO))
-			System.out.println("\n Writing Employee PayRoll Roaster to Console\n " + person);
+			System.out.println("\n Writing Address Book Roaster to Console\n " + person);
 		else if (ioService.equals(IOService.FILE_IO))
 			new AddressBookIOService().writeData(person);
 	}
@@ -105,54 +114,53 @@ public class AddressBook {
 				System.out.println("Enter the choice What you want to Edit");
 				int choice = sc.nextInt();
 				switch (choice) { // choosing which option as to edit
-				case 1 -> {
+				case 1 :
 					System.out.println("Enter the New First Name");
-					Scanner sc1 = new Scanner(System.in);
-					firstName = sc1.nextLine();
+					Scanner scanner1 = new Scanner(System.in);
+					firstName = scanner1.nextLine();
 					temp.setFirstName(firstName);
-				}
-				case 2 -> {
+					break;
+				case 2 :
 					System.out.println("Enter the New Last Name");
-					Scanner sc2 = new Scanner(System.in);
-					String lastName = sc2.nextLine();
+					Scanner scanner2 = new Scanner(System.in);
+					String lastName = scanner2.nextLine();
 					temp.setLastName(lastName);
-				}
-				case 3 -> {
+					break;
+				case 3 :
 					System.out.println("Enter the Address");
-					Scanner sc3 = new Scanner(System.in);
-					String address = sc3.nextLine();
+					Scanner scanner3 = new Scanner(System.in);
+					String address = scanner3.nextLine();
 					temp.setAddress(address);
-				}
-				case 4 -> {
+					break;
+				case 4 :
 					System.out.println("Enter the New City");
-					Scanner sc4 = new Scanner(System.in);
-					String city = sc4.nextLine();
+					Scanner scanner4 = new Scanner(System.in);
+					String city = scanner4.nextLine();
 					temp.setCity(city);
-				}
-				case 5 -> {
+					break;
+				case 5 :
 					System.out.println("Enter the New State");
-					Scanner sc5 = new Scanner(System.in);
-					String state = sc5.nextLine();
+					Scanner scanner5 = new Scanner(System.in);
+					String state = scanner5.nextLine();
 					temp.setState(state);
-				}
-				case 6 -> {
+					break;
+				case 6 :
 					System.out.println("Enter the New Zip Code");
-					Scanner sc6 = new Scanner(System.in);
-					int zipCode = sc6.nextInt();
+					Scanner scanner6 = new Scanner(System.in);
+					int zipCode = scanner6.nextInt();
 					temp.setZipCode(zipCode);
-				}
-				case 7 -> {
+					break;
+				case 7 :
 					System.out.println("Enter the New Email Address");
-					Scanner sc7 = new Scanner(System.in);
-					String eMail = sc7.nextLine();
+					Scanner scanner7 = new Scanner(System.in);
+					String eMail = scanner7.nextLine();
 					temp.setMail(eMail);
-				}
-				case 8 -> {
+					break;
+				case 8 :
 					System.out.println("Enter the New Phone Number");
-					Scanner sc8 = new Scanner(System.in);
-					String phoneNumber = sc8.nextLine();
+					Scanner scanner8 = new Scanner(System.in);
+					String phoneNumber = scanner8.nextLine();
 					temp.setPhoneNumber(phoneNumber);
-				}
 				}
 				System.out.println("Contacts are Updated");
 				System.out.println(person);
@@ -168,8 +176,8 @@ public class AddressBook {
 	 */
 	public static void deleteContactByFirstName() {
 		System.out.println("Enter the First Name to verify and delete the contact");
-		Scanner sc = new Scanner(System.in);
-		String firstName = sc.nextLine();
+		Scanner scanner = new Scanner(System.in);
+		String firstName = scanner.nextLine();
 		int flag = 0;
 		for (Iterator<ContactPerson> iterator = person.iterator(); iterator.hasNext();) {
 			ContactPerson temp = iterator.next();
@@ -181,5 +189,46 @@ public class AddressBook {
 		}
 		System.out.println("No contact With First Name " + firstName + " will found");
 	}
-
+	
+	/**
+     * Create Method to Search the Contact By Using City Name
+     */
+    public void searchPersonByCity(String city) {
+        List<ContactPerson> search = person.stream().filter(first -> first.getCity().equals(city)).collect(Collectors.toList());
+        for (ContactPerson contacts : search ) {
+            System.out.println("City: " + contacts.getCity() + " LastName: " + contacts.getCity());
+        }
+    }
+    
+    /**
+     * Create Method for Reading the addressBook contacts from a csv
+     */
+    public void readAddressBookContactsFromCSV() throws IOException {
+        try (Reader reader = Files.newBufferedReader(Paths.get(SAMPLE_CSV_FILE_PATH));
+             CSVReader csvReader = new CSVReaderBuilder(reader).withSkipLines(1).build();) {
+            String[] nextRecord;
+            while ((nextRecord = csvReader.readNext()) != null) {
+                System.out.println("First Name - " + nextRecord[0]);
+                System.out.println("Last Name - " + nextRecord[1]);
+                System.out.println("Address - " + nextRecord[1]);
+                System.out.println("City - " + nextRecord[1]);
+                System.out.println("State - " + nextRecord[1]);
+                System.out.println("Email - " + nextRecord[1]);
+                System.out.println("Phone - " + nextRecord[1]);
+                System.out.println("Zip - " + nextRecord[1]);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * Create Method to Search the Contact By Using State Name
+     */
+    public void searchPersonByState(String state) {
+        List<ContactPerson> search = person.stream().filter(first -> first.getState().equals(state)).collect(Collectors.toList());
+        for (ContactPerson contacts : search ) {
+            System.out.println("State: " + contacts.getState() + " LastName: " + contacts.getState());
+        }
+    }
 }
