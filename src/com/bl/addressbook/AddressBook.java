@@ -1,10 +1,15 @@
 package com.bl.addressbook;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 /**
@@ -17,7 +22,7 @@ public class AddressBook {
 	}
 
 	// variables
-	private static final String SAMPLE_CSV_FILE_PATH = "O:\\Intellij\\AddressBook_System\\src\\test\\resources\\contacts.csv";
+	private static final String SAMPLE_CSV_FILE_PATH = "../AddressBookManagmenbt/addressBook_file.txt";
 	private static final Scanner sc = new Scanner(System.in);
 	public static List<ContactPerson> person = new ArrayList<ContactPerson>();
 	public static HashMap<String, List<ContactPerson>> addressBookSystem = new HashMap<>();
@@ -189,6 +194,49 @@ public class AddressBook {
 		}
 		System.out.println("No contact With First Name " + firstName + " will found");
 	}
+	
+	 /**
+     * Create Method for Writing the addressBook contacts from Json File
+	 * @param <Json>
+     */
+    public void writeContactsToJsonFile() throws IOException {
+        
+    	 File file=new File("../AddressBookManagmenbt/addressBook_file.txt");
+         BufferedWriter buffer = null;
+         try{
+             buffer=new BufferedWriter(new FileWriter(file));
+
+             for (Entry<String, List<ContactPerson>> book : addressBookSystem.entrySet()){
+                 buffer.write(book.getKey() + ":" +book.getValue());
+                 buffer.newLine();
+             }
+             buffer.flush();
+         }
+         catch(IOException e){
+             e.printStackTrace();
+         }
+    }
+    
+    /**
+     * Create Method for Reading the addressBook contacts from Json File
+     */
+    public void readContactsFromJsonFile() throws IOException {
+        List<ContactPerson> contactPersonList = null;
+        try (Reader reader = Files.newBufferedReader(Path.of(SAMPLE_CSV_FILE_PATH));) {
+        	gson json = new gson();
+            contactPersonList = new ArrayList<ContactPerson>(Arrays.asList(json.fromJson(reader, ContactPerson[].class)));
+            for (ContactPerson contactList : contactPersonList) {
+                System.out.println("First Name : " + contactList.getFirstName());
+                System.out.println("Last Name : " + contactList.getLastName());
+                System.out.println("Address : " + contactList.getAddress());
+                System.out.println("City : " + contactList.getCity());
+                System.out.println("State : " + contactList.getState());
+                System.out.println("ZipCode : " + contactList.getZipCode());
+                System.out.println("Email : " + contactList.getMail());
+                System.out.println("Phone number : " + contactList.getPhoneNumber());
+            }
+        }
+    }
 	
 	/**
      * Create Method to Search the Contact By Using City Name

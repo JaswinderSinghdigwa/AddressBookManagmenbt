@@ -25,7 +25,7 @@ public class AddressBookMain {
 	public static void addressBook() throws IOException, CsvRequiredFieldEmptyException, CsvDataTypeMismatchException{
 		boolean choose = false;
 		while (true) {
-			System.out.println("1.Create\n 2.Edit\n 3.Delete\n 4.Write Data To File\n 5.Read Data from Console\n 6.Read data from Csvfile 7.Exit the loop");
+			System.out.println("1.Create\n 2.Edit\n 3.Delete\n 4.Write Data To File\n 5.Read Data from Console\n 6.Read data from Csvfile 7.Write from Jsonfile\n 8.Read from Jsonfile\n 9.Exit the loop");
 			System.out.println("Enter the choice What you want do");
 			int choice = scan.nextInt();
 			switch (choice) {
@@ -58,7 +58,15 @@ public class AddressBookMain {
 				AddressBook readCSV = new AddressBook();
                 readCSV.readAddressBookContactsFromCSV();
                 break;
-			case 7 : System.exit(0);
+			case 7 :
+				AddressBook writeContactsJSON = new AddressBook();
+                writeContactsJSON.writeContactsToJsonFile();
+                break;
+			case 8 :
+				 AddressBook readContactsJSON = new AddressBook();
+                 readContactsJSON.readContactsFromJsonFile();
+                 break;
+			case 9 : System.exit(0);
 			default :
 				System.out.println("Choice is incorrect");
 			}
